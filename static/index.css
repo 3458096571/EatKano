@@ -1,295 +1,547 @@
-body {
-    font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+/* ========================================
+   星空音游 - Starlight Rhythm Theme
+   ======================================== */
+
+/* CSS Variables - Starlight Theme Colors */
+:root {
+    /* Primary Colors */
+    --color-bg-deep: #0a0a1a;
+    --color-bg-blue: #16213e;
+    --color-accent-cyan: #00d2ff;
+    --color-accent-pink: #e94560;
+    --color-accent-purple: #7b2cbf;
+    --color-accent-gold: #ffd700;
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, #0a0a1a 0%, #16213e 50%, #1a1a3e 100%);
+    --gradient-glow: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-pink));
+    --gradient-button: linear-gradient(135deg, #00d2ff 0%, #7b2cbf 100%);
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(22, 33, 62, 0.6);
+    --glass-border: rgba(0, 210, 255, 0.3);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    
+    /* Typography */
+    --font-primary: 'Noto Sans SC', sans-serif;
+    --font-display: 'Orbitron', sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Animation */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+* {
     margin: 0;
     padding: 0;
-}
-
-.loading {
-    background-image: url("data:image/gif;base64,R0lGODlhJQAlAJECAL3L2AYrTv///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgACACwAAAAAJQAlAAACi5SPqcvtDyGYIFpF690i8xUw3qJBwUlSadmcLqYmGQu6KDIeM13beGzYWWy3DlB4IYaMk+Dso2RWkFCfLPcRvFbZxFLUDTt21BW56TyjRep1e20+i+eYMR145W2eefj+6VFmgTQi+ECVY8iGxcg35phGo/iDFwlTyXWphwlm1imGRdcnuqhHeop6UAAAIfkEBQoAAgAsEAACAAQACwAAAgWMj6nLXAAh+QQFCgACACwVAAUACgALAAACFZQvgRi92dyJcVJlLobUdi8x4bIhBQAh+QQFCgACACwXABEADAADAAACBYyPqcsFACH5BAUKAAIALBUAFQAKAAsAAAITlGKZwWoMHYxqtmplxlNT7ixGAQAh+QQFCgACACwQABgABAALAAACBYyPqctcACH5BAUKAAIALAUAFQAKAAsAAAIVlC+BGL3Z3IlxUmUuhtR2LzHhsiEFACH5BAUKAAIALAEAEQAMAAMAAAIFjI+pywUAIfkEBQoAAgAsBQAFAAoACwAAAhOUYJnAagwdjGq2amXGU1PuLEYBACH5BAUKAAIALBAAAgAEAAsAAAIFhI+py1wAIfkEBQoAAgAsFQAFAAoACwAAAhWUL4AIvdnciXFSZS6G1HYvMeGyIQUAIfkEBQoAAgAsFwARAAwAAwAAAgWEj6nLBQAh+QQFCgACACwVABUACgALAAACE5RgmcBqDB2MarZqZcZTU+4sRgEAIfkEBQoAAgAsEAAYAAQACwAAAgWEj6nLXAAh+QQFCgACACwFABUACgALAAACFZQvgAi92dyJcVJlLobUdi8x4bIhBQAh+QQFCgACACwBABEADAADAAACBYSPqcsFADs=");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: auto 60%;
-}
-
-.start_btn{
-    display:inline-block;
-    margin:0 auto;
-    width:8em;
-    height:1.7em;
-    line-height:1.7em;
-    font-size:2.2em;
-    color:#fff;
-}
-
-.SHADE {
-    top: 0;
-    left: 0;
-    width: 100%;
-    bottom: 0;
-    z-index: 11;
-}
-
-.BOX-V {
-    box-orient: vertical;
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    -ms-flex-direction: column;
-}
-
-.BOX-D {
-    box-align: end;
-    box-pack: center;
-    -webkit-box-align: end;
-    -webkit-box-pack: center;
-    -ms-flex-align: end;
-    -ms-flex-pack: center;
-}
-
-.BOX-M {
-    box-align: center;
-    box-pack: center;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-    -ms-flex-align: center;
-    -ms-flex-pack: center;
-}
-
-.BOX-S {
-    display: block;
-    box-flex: 1;
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -ms-flex: 1;
-}
-
-.BOX,
-.BOX-V,
-.BOX-D,
-.BOX-M,
-.FOOTER {
-    display: box;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-}
-
-.BBOX,
-.BOX,
-.APP-STAGE,
-.INSET-STAGE,
-.STAGE,
-.PAGE-STAGE,
-.PAGE,
-.PAGE-BOX,
-.INSET-PAGE,
-.FOOTER {
     box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
 }
 
-
-#welcome {
-    background-color: rgba(0, 0, 0, .8);
-    text-align: center;
-    font-weight: bold;
+html, body {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    font-family: var(--font-primary);
+    background: var(--color-bg-deep);
+    color: #fff;
 }
 
-.welcome-bg {
-    position: absolute;
+body {
+    background: var(--gradient-primary);
+    position: relative;
+}
+
+/* ========================================
+   Animated Background Canvas
+   ======================================== */
+#bgCanvas {
+    position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: 100% 100%;
-    opacity: .4;
-    overflow: hidden;
-}
-
-#GameTimeLayer {
-    top: 1em;
     left: 0;
     width: 100%;
-    text-align: center;
-    color: rgb(233, 138, 131);
-    font-size: 4em;
-    text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff;
-    overflow: hidden;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
-#GameLayerBG {
+/* ========================================
+   Glowing Grid Overlay
+   ======================================== */
+.grid-overlay {
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background-image: 
+        linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* ========================================
+   Glassmorphism Panel
+   ======================================== */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+}
+
+/* ========================================
+   Welcome Screen
+   ======================================== */
+#welcome {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    padding: var(--spacing-xl);
+    min-width: 320px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.game-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: var(--gradient-glow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 210, 255, 0.5);
+    margin-bottom: var(--spacing-sm);
+}
+
+.game-intro {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+/* ========================================
+   Preset Selector
+   ======================================== */
+.preset-selector {
+    margin: var(--spacing-md) 0;
+}
+
+.preset-selector label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.preset-options {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.preset-option {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
     overflow: hidden;
-    background: #fff;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition-normal);
+    opacity: 0.6;
 }
 
-.GameLayer {
-    position: absolute;
-    bottom: 0;
+.preset-option:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.preset-option.active {
+    border-color: var(--color-accent-cyan);
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+}
+
+.preset-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+.btn-glow {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: 12px;
+    background: var(--gradient-button);
+    color: #fff;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(0, 210, 255, 0.6);
+}
+
+.btn-glow:active {
+    transform: translateY(0);
+}
+
+.btn-outline {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--color-accent-cyan);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--color-accent-cyan);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-outline:hover {
+    background: rgba(0, 210, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+}
+
+/* ========================================
+   Game Container
+   ======================================== */
+#game {
+    position: fixed;
+    top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
 }
 
+.hidden {
+    display: none !important;
+}
+
+/* ========================================
+   Game Header
+   ======================================== */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.score-display, .timer-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-label, .timer-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent-cyan);
+    text-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+}
+
+.timer-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent-pink);
+    text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+/* ========================================
+   Game Area
+   ======================================== */
+.game-area {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    max-height: 60vh;
+}
+
+/* ========================================
+   Game Blocks - Star Theme
+   ======================================== */
 .block {
     position: absolute;
-    border-top: 1px solid #b8dfe6;
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
+    animation: blockAppear 0.3s ease-out;
 }
 
-.t1,
-.t2,
-.t3,
-.t4,
-.t5 {
-    background-size: auto 100%;
-    background-image: url(./image/ClickBefore.png);
+.block:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.8));
 }
 
-.tt1,
-.tt2,
-.tt3,
-.tt4,
-.tt5 {
-    background-size: auto 86%;
-    background-image: url(./image/ClickAfter.png);
+.block:active {
+    transform: scale(0.95);
 }
 
-.bl {
-    border-left: 1px solid #b8dfe6;
-}
-
-@-ms-keyframes flash {
-    0% {
-        opacity: 1;
-    }
-    50% {
+@keyframes blockAppear {
+    from {
         opacity: 0;
+        transform: scale(0.5);
     }
-    100% {
+    to {
         opacity: 1;
+        transform: scale(1);
     }
 }
 
-@-webkit-keyframes flash {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+/* Block types with random preset images (set via JS) */
+.t1, .t2, .t3, .t4, .t5 {
+    /* Background image set dynamically via JavaScript */
 }
 
-.flash {
-    -webkit-animation: flash .2s 3;
-    animation: flash .2s 3;
-}
-
-.bad {
-    background-color: rgb(211, 91, 91);
-    -webkit-animation: flash .2s 3;
-    animation: flash .2s 3;
-}
-
-* {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -ms-tap-highlight-color: rgba(0, 0, 0, 0);
-    -ms-user-select: none;
-}
-
-#GameScoreLayer {
-    padding-top: 2em;
-    font-size: 2em;
-    font-weight: bold;
-    color: #251c1c;
-    text-align: center;
-    overflow: hidden;
-}
-
-.share-icon {
-    width: 1.7em;
-    background-repeat: no-repeat;
-    background-size: auto 100%;
-}
-
-
-
-#GameScoreLayer-btn .btn,
-#GameScoreLayer-share .btn {
-    text-align: center;
-    font-size: 1.1em;
-    color: rgba(0, 0, 0, 0.3);
-    height: 2em;
-    line-height: 2em;
-}
-
-.btn:active {
-    opacity: 0.2;
-}
-
-#landscape {
-    display: none;
-}
-
-#gameBody {
-    position: relative;
-    width: 640px;
-    margin: 0 auto;
-}
-
-#share-wx {
-    background: rgba(0, 0, 0, 0.8);
+/* Hit effect blocks */
+.block-hit {
     position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.tt1, .tt2, .tt3, .tt4, .tt5 {
+    animation: hit_fx 0.15s ease-out forwards;
+}
+
+@keyframes hit_fx {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(2) drop-shadow(0 0 30px var(--color-accent-cyan));
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+        filter: brightness(1) drop-shadow(0 0 0 transparent);
+    }
+}
+
+/* ========================================
+   Hit FX Sprite Animation Container
+   ======================================== */
+#hitFxContainer {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 10000;
-    display: none;
+    height: 100%;
+    pointer-events: none;
+    z-index: 200;
 }
 
-#btn_group {
-    width: 37.5%;
-    max-width: 200px;
+.hit-fx-sprite {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-image: url('image/hit_fx.png');
+    background-size: 700% 600%; /* 7 columns × 6 rows */
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: none;
 }
 
-@media (max-width: 450px) {
-    #btn_group {
-        max-width: 110px !important;
+/* ========================================
+   End Screen
+   ======================================== */
+#end {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    padding: var(--spacing-xl);
+    min-width: 300px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.end-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.end-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent-pink);
+}
+
+.final-score {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.final-score-value {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    background: var(--gradient-glow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.rank-display {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.rank-value {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-accent-gold);
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.8rem;
+    }
+    
+    .game-area {
+        height: 300px;
+    }
+    
+    .block {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .block-hit {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .hit-fx-sprite {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .preset-option {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .score-value, .timer-value {
+        font-size: 1.5rem;
     }
 }
 
-@media (max-width: 600px) {
-    #btn_group {
-        max-width: 125px;
+@media (max-height: 600px) {
+    #welcome, #end {
+        padding: var(--spacing-md);
+    }
+    
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .game-intro {
+        font-size: 0.9rem;
     }
 }
 
-@media (max-width: 800px) {
-    #btn_group {
-        max-width: 150px;
-    }
+/* ========================================
+   Utility Classes
+   ======================================== */
+.text-glow-cyan {
+    text-shadow: 0 0 10px var(--color-accent-cyan);
 }
 
-#setting {
-    width: 50%;
+.text-glow-pink {
+    text-shadow: 0 0 10px var(--color-accent-pink);
 }
 
-@media (max-width: 1200px) {
-    #setting {
-        width: 80%;
-    }
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
 }
 
-#GameScoreLayer .col-3, #GameScoreLayer .col-2 {
-    max-width: 144px;
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
-.dropdown-item {
-    cursor: pointer;
-}
+/* Block spawn animation variations */
+.block.spawn-1 { animation: blockAppear 0.3s ease-out; }
+.block.spawn-2 { animation: blockAppear 0.3s ease-out 0.05s; }
+.block.spawn-3 { animation: blockAppear 0.3s ease-out 0.1s; }
