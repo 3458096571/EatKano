@@ -14,10 +14,8 @@
         blockSpawnInterval: 800,
         blockLifetime: 2000,
         maxBlocks: 5,
-        hitFxDuration: 750, // 0.75 seconds
-        hitFxColumns: 7,
-        hitFxRows: 6,
-        hitFxTotalFrames: 42,
+        hitFxDuration: 600, // Duration for particle effects
+        particleCount: 16, // Number of particles per hit
         starfieldParticles: 80
     };
 
@@ -175,42 +173,168 @@
     };
 
     // ========================================
-    // Hit FX Sprite Animation
+    // Hit FX Particle System (Pure CSS/JS)
     // ========================================
     const hitFxManager = {
+        // Color palette for particles
+        colors: [
+            '#00d2ff', // Cyan
+            '#7b2cbf', // Purple
+            '#e94560', // Pink
+            '#ffd700', // Gold
+            '#00ff88', // Green
+            '#ff6b6b'  // Coral
+        ],
+
         /**
-         * Play hit effect sprite animation at position
+         * Play hit effect at position with particle explosion
          * @param {number} x - X position
          * @param {number} y - Y position
          */
         play(x, y) {
-            const sprite = document.createElement('div');
-            sprite.className = 'hit-fx-sprite';
-            sprite.style.left = `${x - 75}px`; // Center the 150px sprite
-            sprite.style.top = `${y - 75}px`;
+            // Create central glow flash
+            this.createGlow(x, y);
             
-            elements.hitFxContainer.appendChild(sprite);
+            // Create expanding ring
+            this.createRing(x, y);
             
-            // Animate through sprite sheet frames
-            let frame = 0;
-            const frameDuration = CONFIG.hitFxDuration / CONFIG.hitFxTotalFrames;
+            // Create central burst
+            this.createBurst(x, y);
             
-            const animateFrame = () => {
-                if (frame >= CONFIG.hitFxTotalFrames) {
-                    sprite.remove();
-                    return;
-                }
+            // Create particle explosion
+            this.createParticles(x, y, CONFIG.particleCount);
+            
+            // Create star particles
+            this.createStars(x, y, 6);
+            
+            // Create sparks
+            this.createSparks(x, y, 8);
+        },
+
+        /**
+         * Create central glow flash
+         */
+        createGlow(x, y) {
+            const glow = document.createElement('div');
+            glow.className = 'hit-glow';
+            glow.style.left = `${x}px`;
+            glow.style.top = `${y}px`;
+            elements.hitFxContainer.appendChild(glow);
+            
+            setTimeout(() => glow.remove(), 300);
+        },
+
+        /**
+         * Create expanding ring
+         */
+        createRing(x, y) {
+            const ring = document.createElement('div');
+            ring.className = 'hit-particle ring';
+            ring.style.left = `${x}px`;
+            ring.style.top = `${y}px`;
+            ring.style.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+            elements.hitFxContainer.appendChild(ring);
+            
+            setTimeout(() => ring.remove(), 500);
+        },
+
+        /**
+         * Create central burst
+         */
+        createBurst(x, y) {
+            const burst = document.createElement('div');
+            burst.className = 'hit-burst';
+            burst.style.left = `${x}px`;
+            burst.style.top = `${y}px`;
+            elements.hitFxContainer.appendChild(burst);
+            
+            setTimeout(() => burst.remove(), 400);
+        },
+
+        /**
+         * Create particle explosion
+         */
+        createParticles(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'hit-particle';
                 
-                const col = frame % CONFIG.hitFxColumns;
-                const row = Math.floor(frame / CONFIG.hitFxColumns);
+                // Random angle and distance
+                const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.5;
+                const distance = 40 + Math.random() * 60;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
                 
-                sprite.style.backgroundPosition = `-${col * 100}% -${row * 100}%`;
+                // Random color
+                const color = this.colors[Math.floor(Math.random() * this.colors.length)];
                 
-                frame++;
-                setTimeout(animateFrame, frameDuration);
-            };
-            
-            animateFrame();
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 6px ${color}`;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                elements.hitFxContainer.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 600);
+            }
+        },
+
+        /**
+         * Create star-shaped particles
+         */
+        createStars(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'hit-particle star';
+                
+                const angle = (Math.PI * 2 / count) * i;
+                const distance = 50 + Math.random() * 40;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                star.style.backgroundColor = color;
+                star.style.setProperty('--tx', `${tx}px`);
+                star.style.setProperty('--ty', `${ty}px`);
+                
+                elements.hitFxContainer.appendChild(star);
+                
+                setTimeout(() => star.remove(), 600);
+            }
+        },
+
+        /**
+         * Create spark lines
+         */
+        createSparks(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'hit-particle spark';
+                
+                const angle = (Math.PI * 2 / count) * i + Math.random() * 0.3;
+                const distance = 30 + Math.random() * 50;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                
+                spark.style.left = `${x}px`;
+                spark.style.top = `${y}px`;
+                spark.style.backgroundColor = color;
+                spark.style.boxShadow = `0 0 4px ${color}`;
+                spark.style.setProperty('--tx', `${tx}px`);
+                spark.style.setProperty('--ty', `${ty}px`);
+                spark.style.setProperty('--rotation', `${angle}rad`);
+                
+                elements.hitFxContainer.appendChild(spark);
+                
+                setTimeout(() => spark.remove(), 400);
+            }
         }
     };
 
@@ -306,7 +430,7 @@
             // Play sound
             audioManager.play('tap');
             
-            // Play hit FX sprite animation
+            // Play hit FX particle animation
             hitFxManager.play(clientX, clientY);
             
             // Create hit effect element
