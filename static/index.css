@@ -389,7 +389,7 @@ body {
 }
 
 /* ========================================
-   Hit FX Sprite Animation Container
+   Hit FX Container - Pure CSS Particle System
    ======================================== */
 #hitFxContainer {
     position: fixed;
@@ -401,15 +401,117 @@ body {
     z-index: 200;
 }
 
-.hit-fx-sprite {
+/* Particle explosion effect */
+.hit-particle {
     position: absolute;
-    width: 150px;
-    height: 150px;
-    background-image: url('image/hit_fx.png');
-    background-size: 700% 600%; /* 7 columns × 6 rows */
-    mix-blend-mode: screen;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
     pointer-events: none;
-    animation: none;
+    animation: particleExplode 0.6s ease-out forwards;
+}
+
+.hit-particle.star {
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width: 12px;
+    height: 12px;
+}
+
+.hit-particle.ring {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid currentColor;
+    background: transparent !important;
+    animation: ringExpand 0.5s ease-out forwards;
+}
+
+.hit-particle.spark {
+    width: 4px;
+    height: 20px;
+    border-radius: 2px;
+    animation: sparkFly 0.4s ease-out forwards;
+}
+
+@keyframes particleExplode {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.3);
+    }
+}
+
+@keyframes ringExpand {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2);
+    }
+}
+
+@keyframes sparkFly {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(var(--rotation)) scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) rotate(var(--rotation)) scaleY(0.3);
+    }
+}
+
+/* Central burst effect */
+.hit-burst {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(0, 210, 255, 0.8) 0%, rgba(123, 44, 191, 0.4) 50%, transparent 70%);
+    animation: burstPulse 0.4s ease-out forwards;
+}
+
+@keyframes burstPulse {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2);
+    }
+}
+
+/* Glow flash effect */
+.hit-glow {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(0, 210, 255, 0.3) 40%, transparent 70%);
+    animation: glowFlash 0.3s ease-out forwards;
+}
+
+@keyframes glowFlash {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
 }
 
 /* ========================================
@@ -490,11 +592,6 @@ body {
     .block-hit {
         width: 60px;
         height: 60px;
-    }
-    
-    .hit-fx-sprite {
-        width: 120px;
-        height: 120px;
     }
     
     .preset-option {
