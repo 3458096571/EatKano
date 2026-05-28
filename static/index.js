@@ -186,8 +186,8 @@
         play(x, y) {
             const sprite = document.createElement('div');
             sprite.className = 'hit-fx-sprite';
-            sprite.style.left = `${x - 60}px`; // Center the 120px sprite
-            sprite.style.top = `${y - 60}px`;
+            sprite.style.left = `${x - 75}px`; // Center the 150px sprite
+            sprite.style.top = `${y - 75}px`;
             
             elements.hitFxContainer.appendChild(sprite);
             
