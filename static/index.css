@@ -403,8 +403,8 @@ body {
 
 .hit-fx-sprite {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     background-image: url('image/hit_fx.png');
     background-size: 700% 600%; /* 7 columns × 6 rows */
     mix-blend-mode: screen;
@@ -493,8 +493,8 @@ body {
     }
     
     .hit-fx-sprite {
-        width: 90px;
-        height: 90px;
+        width: 120px;
+        height: 120px;
     }
     
     .preset-option {
